@@ -6,8 +6,8 @@ const app = Fastify({
 })
 
 app.get('/', async (req, reply) => {
-  await housesCrawler()
-  return reply.status(200).send({ message: "complete" })
+  const complete = await housesCrawler()
+  return reply.status(200).send({ complete })
 })
 
 export default async function handler(req, reply) {

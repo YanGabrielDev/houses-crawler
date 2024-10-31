@@ -16,7 +16,7 @@ export const housesCrawler = async () => {
 
         if (savedHouses) {
             await handlCheckSavedHouses({ houses: [...houses, newHouse], housesJson, parsedSavedHouses })
-            return
+            return { new: [...houses, newHouse], save: parsedSavedHouses }
         }
 
         if (housesJson) {
