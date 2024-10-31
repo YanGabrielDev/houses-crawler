@@ -1,0 +1,1 @@
+export const QUINTO_ANDAR_API = "https://apigw.prod.quintoandar.com.br/cached/house-listing-search/v1/search/list"
