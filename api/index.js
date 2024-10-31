@@ -1,5 +1,5 @@
 import Fastify from 'fastify'
-import { housesCrawler } from '../src/services/quinto-andar-service'
+import { housesCrawler } from '../src/services/quinto-andar-service.js'
 
 const app = Fastify({
   logger: true,
