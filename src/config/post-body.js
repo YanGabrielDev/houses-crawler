@@ -13,14 +13,14 @@ export const postBody = {
         "selectedHouses": [],
         "location": {
             "coordinate": {
-                "lat": -19.919052,
-                "lng": -43.9386685
+                "lat": -19.916681,
+                "lng": -43.934493
             },
             "viewport": {
-                "east": -43.84528471093749,
-                "north": -19.837851150116368,
-                "south": -20.000211169759673,
-                "west": -44.03205228906249
+                "east": -43.840422565429684,
+                "north": -19.788643749804223,
+                "south": -19.999454492241185,
+                "west": -44.073882038085934
             },
             "neighborhoods": [],
             "countryCode": "BR"
@@ -40,9 +40,7 @@ export const postBody = {
             "area": {
                 "range": {}
             },
-            "houseTypes": [
-                "APARTMENT"
-            ],
+            "houseTypes": [],
             "amenities": [],
             "installations": [],
             "bathrooms": {
