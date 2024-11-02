@@ -2,10 +2,15 @@
   "name": "fastify",
   "repository": "https://github.com/vercel/examples.git",
   "license": "MIT",
+  "type": "module",
   "private": true,
+  "scripts": {
+    "create-houses-table": "node --env-file .env src/migrations/create-houses-table-migration.js"
+  },
   "dependencies": {
-    "fastify": "^4.25.2",
+    "@libsql/client": "^0.14.0",
     "dotenv": "^16.4.5",
+    "fastify": "^4.25.2",
     "nodemailer": "^6.9.16"
   }
 }
