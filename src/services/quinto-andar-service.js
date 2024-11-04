@@ -1,6 +1,4 @@
 import { listHouses } from "../api/quinto-andar-api.js"
-import { promises as fs } from 'fs';
-import { getFileData } from "../utils/getFileData.js";
 import { sendEmail } from "./send-email-service.js";
 import { newHouse } from '../mock/housesMock.js'
 import { houseModel } from '../models/houseModel.js'
@@ -12,18 +10,15 @@ import { houseModel } from '../models/houseModel.js'
 export const housesCrawler = async () => {
     try {
         const houses = await listHouses();
-        const savedHouses = await getFileData('houses.json')
-        const parsedSavedHouses = JSON.parse(savedHouses)
-        const housesJson = JSON.stringify(houses);
-        console.log(houses.length);
+        const savedHouses = await houseModel.getAllHouses()
+        console.log("opa", savedHouses.rows);
 
         if (savedHouses) {
-            await handlCheckSavedHouses({ houses: [...houses, newHouse], housesJson, parsedSavedHouses })
-            return { new: [...houses, newHouse], save: parsedSavedHouses }
+            await handlCheckSavedHouses({ houses: [...houses, newHouse], savedHouses: savedHouses.rows })
+            return
         }
 
-        if (housesJson) {
-            await fs.writeFile('houses.json', housesJson);
+        if (houses) {
             houses?.map(async (house) => {
                 const houseSource = house._source
                 await houseModel.createHouse(houseSource)
@@ -41,11 +36,10 @@ export const housesCrawler = async () => {
 /**
  * Verifica se algum apartamento novo foi encontrado na busca
  * @param {Array} houses Array de apartamentos encontrados na api
- * @param {string} housesJson Json de apartamentos encontrados na api
- * @param {Array} parsedSavedHouses Array de apartamentos armazenados na ultima busca
+ * @param {Array} savedHouses Array de apartamentos armazenados na ultima busca
  */
-const handlCheckSavedHouses = async ({ houses = [], housesJson = '', parsedSavedHouses = [] }) => {
-    const newHouses = houses.filter(house => !parsedSavedHouses.some(savedHouses => savedHouses._id === house._id)) || []
+const handlCheckSavedHouses = async ({ houses = [], savedHouses = [] }) => {
+    const newHouses = houses.filter(house => !savedHouses.some(savedHouse => savedHouse._id === house._id)) || []
     if (newHouses.length > 0) {
         const houseslinks = newHouses.map(houses => `https://www.quintoandar.com.br/imovel/${houses?._id}/comprar`)
         await sendEmail(houseslinks)
@@ -54,8 +48,6 @@ const handlCheckSavedHouses = async ({ houses = [], housesJson = '', parsedSaved
             const houseSource = house._source
             await houseModel.createHouse(houseSource)
         })
-        await fs.unlink('houses.json')
-        await fs.writeFile('houses.json', housesJson);
 
     }
 }

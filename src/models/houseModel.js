@@ -31,6 +31,7 @@ export const houseModel = {
         try {
 
             const houses = await turso.execute(`SELECT * FROM houses`);
+
             return houses;
         } catch (error) {
             console.error("Erro ao buscar casas:", error);
