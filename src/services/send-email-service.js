@@ -8,10 +8,7 @@ export const sendEmail = async (houseslist) => {
             pass: process.env.AUTH_PASS
         },
     });
-    console.log({
-        user: process.env.AUTH_EMAIL,
-        pass: process.env.AUTH_PASS
-    });
+
 
     const mailOptions = {
         from: process.env.AUTH_EMAIL,
