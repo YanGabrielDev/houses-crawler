@@ -8,7 +8,7 @@
   "crons": [
     {
       "path": "/cron/index.js",
-      "schedule": "0 23 55 * *"
+      "schedule": "0 22 53 * *"
     }
   ]
 }
