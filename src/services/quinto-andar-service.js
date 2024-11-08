@@ -39,11 +39,15 @@ export const housesCrawler = async () => {
  * @param {Array} savedHouses Array de apartamentos armazenados na ultima busca
  */
 const handlCheckSavedHouses = async ({ houses = [], savedHouses = [] }) => {
-    const newHouses = houses.filter(house => !savedHouses.some(savedHouse => savedHouse._id === house._id)) || []
+    const savedHouseids = savedHouses.map((item) => item.id)
+    const newHouses = houses.filter(house => {
+        return !savedHouseids.includes(house._source.id)
+    }) || []
+
     if (newHouses.length > 0) {
         const houseslinks = newHouses.map(houses => `https://www.quintoandar.com.br/imovel/${houses?._id}/comprar`)
         await sendEmail(houseslinks)
-        houseModel.resetHouses()
+        await houseModel.resetHouses()
         houses?.map(async (house) => {
             const houseSource = house._source
             await houseModel.createHouse(houseSource)
