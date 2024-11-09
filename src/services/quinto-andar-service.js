@@ -11,7 +11,6 @@ export const housesCrawler = async () => {
     try {
         const houses = await listHouses();
         const savedHouses = await houseModel.getAllHouses()
-        console.log("opa", savedHouses.rows);
 
         if (savedHouses) {
             await handlCheckSavedHouses({ houses: [...houses, newHouse], savedHouses: savedHouses.rows })

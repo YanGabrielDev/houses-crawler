@@ -394,10 +394,10 @@ export const newHouses = [
 
 export const newHouse =
 {
-    "_id": "65464545",
+    "_id": "876737818389893",
     "_score": 2.51,
     "_source": {
-        "id": 45454544,
+        "id": 876737818389893,
         "type": "Apartamento",
         "area": 52,
         "bathrooms": 1,
