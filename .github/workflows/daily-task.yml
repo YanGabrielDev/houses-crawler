@@ -1,0 +1,19 @@
+name: Run Daily Script
+
+on:
+  schedule:
+    # Executa todos os dias às 18:00 UTC
+    - cron: '0 16 * * *'
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+
+    - name: Run the script
+      run: |
+        chmod +x cron/index.js # Torna o arquivo executável (se necessário)
+        ./cron/index.js # Substitua pelo caminho do seu script
