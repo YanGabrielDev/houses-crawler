@@ -15,5 +15,5 @@ jobs:
 
     - name: Run the script
       run: |
-        chmod +x cron/index.js # Torna o arquivo executável (se necessário)
-        ./cron/index.js # Substitua pelo caminho do seu script
+        chmod +x cron/index.js
+        ./cron/index.js 
