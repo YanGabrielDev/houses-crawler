@@ -15,5 +15,4 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run the script
-        run: node cron/index.js
+      
