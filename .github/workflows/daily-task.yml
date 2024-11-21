@@ -2,15 +2,18 @@ name: Run Daily Script
 
 on:
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '40 3 * * *'
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
 
-    steps:
+   steps:
     - name: Check out repository
       uses: actions/checkout@v3
 
+    - name: Install dependencies
+      run: npm install
+      
     - name: Run the script
       run: node cron/index.js

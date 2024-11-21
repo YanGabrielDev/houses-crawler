@@ -2,7 +2,7 @@ name: Run Daily Script
 
 on:
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '40 2 * * *'
 
 jobs:
   run-script:
@@ -11,6 +11,9 @@ jobs:
     steps:
     - name: Check out repository
       uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: npm install
 
     - name: Run the script
       run: node cron/index.js
