@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
-import { generateHTMLEmail } from '../utils/generateHTMlEmail.js'
-export const sendEmail = async (houseslist) => {
+import { generateHTMLEmail } from '../../utils/generateHTMlEmail.util.ts'
+
+export const sendEmail = async (houseslist: Array<string>) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {

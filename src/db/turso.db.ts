@@ -2,7 +2,7 @@ import { createClient } from "@libsql/client";
 
 // Criação do cliente Turso
 export const turso = createClient({
-    url: process.env.TURSO_DATABASE_URL,
+    url: process.env.TURSO_DATABASE_URL ?? 's',
     authToken: process.env.TURSO_AUTH_TOKEN,
 });
 

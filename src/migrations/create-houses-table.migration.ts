@@ -1,4 +1,4 @@
-import { createHousesTable } from "../db/tursoClient.js";
+import { createHousesTable } from "../db/turso.db.ts";
 
 async function runMigrations() {
     try {
