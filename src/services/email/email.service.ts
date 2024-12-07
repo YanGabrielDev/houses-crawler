@@ -1,6 +1,10 @@
 import nodemailer from 'nodemailer';
 import { generateHTMLEmail } from '../../utils/generateHTMlEmail.util.ts'
 
+/**
+ * 
+ * @param {Array<string>} houseslist array com o link das casas/apartamentos que foram encontrados
+ */
 export const sendEmail = async (houseslist: Array<string>) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',

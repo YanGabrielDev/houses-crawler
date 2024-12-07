@@ -1,10 +1,15 @@
 import { QUINTO_ANDAR_API } from "../../config/apis.config.ts";
 import type { HousesResponse } from "./houses.types.ts";
 import houseModel from '../../models/houses/houses.model.ts'
-import { postBody } from "../../config/post-body.config.ts";
+import { postBody } from "../../config/postBody/post-body.config.ts";
 import { sendEmail } from "../email/email.service.ts";
 import type { Row } from "@libsql/client";
-import type { Houses } from "../../models/houses/houses.types.ts";
+import type { Houses } from "../../types/houses.types.ts";
+
+
+/**
+ * @returns {Promise<HousesResponse[]>} retorna as casas/apartamentos encontrados na busca
+ */
 
  const listHouses = async (): Promise<HousesResponse[]> => {
     try {
@@ -13,8 +18,16 @@ import type { Houses } from "../../models/houses/houses.types.ts";
         // Realiza a requisição POST
         const response = await fetch(QUINTO_ANDAR_API, {
             method: "POST",
-            body: JSON.stringify(postBody),
-            headers: { 'Content-Type': 'application/json' } // Adiciona cabeçalhos se necessário
+            body: JSON.stringify(postBody(
+                { 
+                    businessContext: "SALE",
+                    maxPrice: 200000,
+                    minPrice: 150000,
+                    coordinateLat: -19.916681,
+                    coordinateLng: -43.934493
+                }
+            )),
+            headers: { 'Content-Type': 'application/json' } 
         });
 
         // Transforma a resposta em JSON
@@ -32,7 +45,10 @@ import type { Houses } from "../../models/houses/houses.types.ts";
     }
 };  
 
-
+/**
+ * @param {HousesResponse[]} houses Salva casa/apartamento no banco
+ * @returns 
+ */
 const saveHouses = async (houses: HousesResponse[]): Promise<void> => {
     for (const house of houses) {
           const houseSource = house._source

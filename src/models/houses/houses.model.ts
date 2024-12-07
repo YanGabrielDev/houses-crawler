@@ -1,8 +1,11 @@
-// import { turso } from '../db/tursoClient.js';
+/**
+ * @module HousesService
+ * @description Módulo para manipulação de dados na tabela "houses".
+ */
 
 import { createClient } from "@libsql/client";
 import dotenv from "dotenv";
-import type { Houses } from "./houses.types.ts";
+
 dotenv.config();
 
 const turso = createClient({
@@ -10,8 +13,14 @@ const turso = createClient({
   url: process.env.TURSO_DATABASE_URL ?? "",
 });
 
-// Função para adicionar uma nova casa
-const createHouse = async (houseData: Houses) => {
+/**
+ * Adiciona uma nova casa à tabela "houses".
+ * @async
+ * @param {Houses} houseData - Dados da casa a serem inseridos.
+ * @returns {Promise<object>} Resultado da operação de inserção.
+ * @throws {Error} Se ocorrer um erro durante a inserção.
+ */
+const createHouse = async (houseData) => {
   const {
     id,
     type,
@@ -47,19 +56,30 @@ const createHouse = async (houseData: Houses) => {
   }
 };
 
+/**
+ * Retorna todas as casas da tabela "houses".
+ * @async
+ * @returns {Promise<Array<object>>} Lista de casas.
+ * @throws {Error} Se ocorrer um erro durante a consulta.
+ */
 const getAllHouses = async () => {
-    try {
-      const houses = await turso.execute(`SELECT * FROM houses`);
-  
-      // Aqui você garante que houses está tipado corretamente como um array de objetos do tipo House
-      return houses ;
-    } catch (error) {
-      console.error("Erro ao buscar casas:", error);
-      throw error;
-    }
-  };
-// Função para buscar uma casa por ID
-const getHouseById = async (id: number) => {
+  try {
+    const houses = await turso.execute(`SELECT * FROM houses`);
+    return houses;
+  } catch (error) {
+    console.error("Erro ao buscar casas:", error);
+    throw error;
+  }
+};
+
+/**
+ * Busca uma casa pelo ID.
+ * @async
+ * @param {number} id - ID da casa a ser buscada.
+ * @returns {Promise<object|null>} Dados da casa encontrada ou null se não encontrada.
+ * @throws {Error} Se ocorrer um erro durante a consulta.
+ */
+const getHouseById = async (id) => {
   try {
     const house = await turso.execute({
       sql: `SELECT * FROM houses WHERE id = ?`,
@@ -72,8 +92,15 @@ const getHouseById = async (id: number) => {
   }
 };
 
-// Função para atualizar uma casa por ID
-const updateHouse = async (id: number, newHouseData: Houses) => {
+/**
+ * Atualiza os dados de uma casa existente.
+ * @async
+ * @param {number} id - ID da casa a ser atualizada.
+ * @param {Houses} newHouseData - Novos dados da casa.
+ * @returns {Promise<object>} Resultado da operação de atualização.
+ * @throws {Error} Se ocorrer um erro durante a atualização.
+ */
+const updateHouse = async (id, newHouseData) => {
   const {
     type,
     area,
@@ -110,8 +137,14 @@ const updateHouse = async (id: number, newHouseData: Houses) => {
   }
 };
 
-// Função para deletar uma casa por ID
-const deleteHouse = async (id: number) => {
+/**
+ * Deleta uma casa pelo ID.
+ * @async
+ * @param {number} id - ID da casa a ser deletada.
+ * @returns {Promise<object>} Resultado da operação de exclusão.
+ * @throws {Error} Se ocorrer um erro durante a exclusão.
+ */
+const deleteHouse = async (id) => {
   try {
     const result = await turso.execute({
       sql: `DELETE FROM houses WHERE id = ?`,
@@ -125,6 +158,12 @@ const deleteHouse = async (id: number) => {
   }
 };
 
+/**
+ * Reseta a tabela "houses", deletando todos os registros.
+ * @async
+ * @returns {Promise<object>} Resultado da operação de reset.
+ * @throws {Error} Se ocorrer um erro durante o reset.
+ */
 const resetHouses = async () => {
   try {
     const result = await turso.execute(`DELETE FROM houses`);
