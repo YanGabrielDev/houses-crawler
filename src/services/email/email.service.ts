@@ -17,7 +17,7 @@ export const sendEmail = async (houseslist: Array<string>) => {
 
     const mailOptions = {
         from: process.env.AUTH_EMAIL,
-        to: 'yangabrielcruzeiro@gmail.com',
+        to: process.env.RECEIVER_EMAIL,
         subject: 'Houses crawler search',
         text: 'teste',
         html: generateHTMLEmail(houseslist)
