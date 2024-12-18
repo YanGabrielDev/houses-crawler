@@ -1,6 +1,11 @@
 import nodemailer from 'nodemailer';
-import { generateHTMLEmail } from '../utils/generateHTMlEmail.js'
-export const sendEmail = async (houseslist) => {
+import { generateHTMLEmail } from '../../utils/generateHTMlEmail.util.ts'
+
+/**
+ * 
+ * @param {Array<string>} houseslist array com o link das casas/apartamentos que foram encontrados
+ */
+export const sendEmail = async (houseslist: Array<string>) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -12,7 +17,7 @@ export const sendEmail = async (houseslist) => {
 
     const mailOptions = {
         from: process.env.AUTH_EMAIL,
-        to: 'yangabrielcruzeiro@gmail.com',
+        to: process.env.RECEIVER_EMAIL,
         subject: 'Houses crawler search',
         text: 'teste',
         html: generateHTMLEmail(houseslist)

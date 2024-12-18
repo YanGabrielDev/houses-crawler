@@ -392,7 +392,7 @@ export const newHouses = [
     }
 ]
 
-export const newHouse =
+export const newHouse = 
 {
     "_id": "876737818389893",
     "_score": 2.51,

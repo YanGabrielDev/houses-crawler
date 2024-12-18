@@ -1,4 +1,4 @@
-export const generateHTMLEmail = (houseslist = []) => {
+export const generateHTMLEmail = (houseslist: Array<string>) => {
     return `<!DOCTYPE html>
 <html>
 <head>
