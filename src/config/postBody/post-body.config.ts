@@ -1,4 +1,4 @@
-import { PostBody } from "./post-body.types";
+import type { PostBody } from "./post-body.types.ts";
 
 export const postBody = ({
   businessContext,
