@@ -21,4 +21,4 @@ jobs:
         run: npm install
 
       - name: Run the script
-        run: node cron/index.js
+        run: node --env-file .env --experimental-strip-types cron/index.ts
